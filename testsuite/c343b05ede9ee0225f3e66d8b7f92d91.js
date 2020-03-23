@@ -1,0 +1,25 @@
+load("bf4b12814bc95f34eeb130127d8438ab.js");
+load("93fae755edd261212639eed30afa2ca4.js");
+load("9943750f07ea537be5f5aa14a5f7b1b7.js");
+// Copyright (C) Copyright 2015 the V8 project authors. All rights reserved.
+// This code is governed by the BSD license found in the LICENSE file.
+
+/*---
+es6id: 19.2.3
+description: FunctionPrototype `name` property
+info: >
+    The value of the name property of the Function prototype object is the
+    empty String.
+
+    ES6 Section 17:
+
+    Unless otherwise specified, the name property of a built-in Function
+    object, if it exists, has the attributes { [[Writable]]: false,
+    [[Enumerable]]: false, [[Configurable]]: true }.
+includes: [propertyHelper.js]
+---*/
+
+assert.sameValue(Function.prototype.name, '');
+verifyNotEnumerable(Function.prototype, 'name');
+verifyNotWritable(Function.prototype, 'name');
+verifyConfigurable(Function.prototype, 'name');

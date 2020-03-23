@@ -1,0 +1,15 @@
+load("201224b0d1c296b45befd2285e95dd42.js");
+// |jit-test| need-for-each
+
+// Binary: cache/js-dbg-32-5d1cbc94bc42-linux
+// Flags: -m -n -a
+//
+function f(x) {
+    this.i = x;
+}
+for each(let e in [0, 0, []]) {
+    try {
+        f(e)
+    } catch (e) {}
+}
+print(uneval(this))

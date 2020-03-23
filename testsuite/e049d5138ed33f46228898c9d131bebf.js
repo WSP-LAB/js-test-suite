@@ -1,0 +1,16 @@
+load("201224b0d1c296b45befd2285e95dd42.js");
+// |jit-test| error: InternalError
+(function() {
+  try {
+    (Function("this.__defineGetter__(\"x\",(Function(\"for(z=0;z<6;z++)(x)\")))"))()
+  } catch(e) {}
+})()
+((function f(d, aaaaaa) {
+  if (bbbbbb = aaaaaa) {
+    x
+  }
+  f(bbbbbb, aaaaaa + 1)
+})([], 0))
+
+/* Don't assert (32-bit mac only, relies on very specific stack usage). */
+

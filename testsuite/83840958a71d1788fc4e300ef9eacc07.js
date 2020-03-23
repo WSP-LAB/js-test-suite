@@ -1,0 +1,24 @@
+load("bf4b12814bc95f34eeb130127d8438ab.js");
+load("93fae755edd261212639eed30afa2ca4.js");
+// Copyright 2014 Cubane Canada, Inc.  All rights reserved.
+// See LICENSE for details.
+
+/*---
+es6id: S25.4.4.3_A7.3_T1
+author: Sam Mikes
+description: Promise.race([p1, p2]) settles when first settles
+flags: [async]
+---*/
+
+var resolveP1, rejectP2,
+    p1 = new Promise(function (resolve) { resolveP1 = resolve; }),
+    p2 = new Promise(function (resolve, reject) { rejectP2 = reject; });
+
+rejectP2(new Error("Promise.race should not see this if P1 already resolved"));
+resolveP1(1);
+
+Promise.race([p1, p2]).then(function (arg) {
+    if (arg !== 1) {
+        $ERROR("Expected fulfillment with 1, got " + arg);
+    }
+}).then($DONE, $DONE);

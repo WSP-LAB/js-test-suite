@@ -1,0 +1,48 @@
+load("bf4b12814bc95f34eeb130127d8438ab.js");
+load("93fae755edd261212639eed30afa2ca4.js");
+load("9943750f07ea537be5f5aa14a5f7b1b7.js");
+// Copyright (c) 2012 Ecma International.  All rights reserved.
+// This code is governed by the BSD license found in the LICENSE file.
+
+/*---
+es5id: 15.2.3.6-4-299-1
+description: >
+    Object.defineProperty - 'O' is an Arguments object of a function
+    that has formal parameters, 'name' is own accessor property of 'O'
+    which is also defined in [[ParameterMap]] of 'O', test TypeError
+    is thrown when updating the [[Enumerable]] attribute value of
+    'name' which is defined as non-configurable (10.6
+    [[DefineOwnProperty]] steps 4 and 5a)
+includes: [propertyHelper.js]
+---*/
+
+(function (a, b, c) {
+    function getFunc() {
+        return 10;
+    }
+    Object.defineProperty(arguments, "0", {
+        get: getFunc,
+        enumerable: true,
+        configurable: false
+    });
+    try {
+        Object.defineProperty(arguments, "0", {
+            enumerable: false
+        });
+        $ERROR("Expected an exception.");
+    } catch (e) {
+        if (a !== 0) {
+            $ERROR('Expected a === 0, actually ' + a);
+        }
+        verifyEqualTo(arguments, "0", getFunc());
+
+        verifyEnumerable(arguments, "0");
+
+        verifyNotConfigurable(arguments, "0");
+
+        if (!(e instanceof TypeError)) {
+            $ERROR("Expected TypeError, got " + e);
+        }
+
+    }
+}(0, 1, 2));

@@ -1,0 +1,21 @@
+load("bf4b12814bc95f34eeb130127d8438ab.js");
+load("93fae755edd261212639eed30afa2ca4.js");
+// Copyright (C) 2013 the V8 project authors. All rights reserved.
+// This code is governed by the BSD license found in the LICENSE file.
+/*---
+es6id: 25.2
+description: >
+    The `next` method returns an object that has "own" properties `value` and
+    `done` and that inherits directly from the Object prototype.
+---*/
+
+function* g() {}
+var result = g().next();
+
+assert(
+  Object.hasOwnProperty.call(result, 'value'), 'Has "own" property `value`'
+);
+assert(
+  Object.hasOwnProperty.call(result, 'done'), 'Has "own" property `done`'
+);
+assert.sameValue(Object.getPrototypeOf(result), Object.prototype);

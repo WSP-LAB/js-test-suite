@@ -1,0 +1,5 @@
+load("201224b0d1c296b45befd2285e95dd42.js");
+// for-of on an empty array does nothing.
+
+for (var x of [])
+    fail();

@@ -1,0 +1,16 @@
+load("bf4b12814bc95f34eeb130127d8438ab.js");
+load("93fae755edd261212639eed30afa2ca4.js");
+// Copyright 2009 the Sputnik authors.  All rights reserved.
+// This code is governed by the BSD license found in the LICENSE file.
+
+/*---
+info: Single line comments can not contain PARAGRAPH SEPARATOR (U+2029) inside
+es5id: 7.3_A3.4_T2
+description: >
+    Insert PARAGRAPH SEPARATOR (\u2029) into begin of single line
+    comment
+---*/
+
+assert.throws(SyntaxError, function() {
+  eval("//\u2029 single line comment");
+});

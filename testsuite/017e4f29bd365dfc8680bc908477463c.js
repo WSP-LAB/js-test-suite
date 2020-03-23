@@ -1,0 +1,24 @@
+load("201224b0d1c296b45befd2285e95dd42.js");
+// Setting onPop handlers from an onExceptionUnwind handler works.
+var g = newGlobal();
+var dbg = new Debugger(g);
+var log;
+
+dbg.onExceptionUnwind = function handleUnwind(frame) {
+    log += 'u';
+    assertEq(frame.type, "eval");
+    frame.onPop = function handleCallPop(c) {
+        log += ')';
+        assertEq(c.throw, 'up');
+    };
+};
+
+log = "";
+try {
+    g.eval("throw 'up';");
+    log += '-';
+} catch (x) {
+    log += 'c';
+    assertEq(x, 'up');
+}
+assertEq(log, 'u)c');

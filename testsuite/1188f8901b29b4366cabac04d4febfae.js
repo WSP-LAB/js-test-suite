@@ -1,0 +1,44 @@
+load("fcfbc86708bc3a4062c2091a062e13b6.js");
+load("b838f1585aea1338f85dfef2026aaa95.js");
+/* -*- tab-width: 2; indent-tabs-mode: nil; js-indent-level: 2 -*- */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+/**
+   File Name:          call-1.js
+   Section:            Function.prototype.call
+   Description:
+
+
+   Author:             christine@netscape.com
+   Date:               12 november 1997
+*/
+var SECTION = "call-1";
+var VERSION = "ECMA_2";
+var TITLE   = "Function.prototype.call";
+
+startTest();
+writeHeaderToLog( SECTION + " "+ TITLE);
+
+new TestCase( SECTION,
+	      "ConvertToString.call(this, this)",
+	      GLOBAL,
+	      ConvertToString.call(this, this));
+
+new TestCase( SECTION,
+	      "ConvertToString.call(Boolean, Boolean.prototype)",
+	      "false",
+	      ConvertToString.call(Boolean, Boolean.prototype));
+
+new TestCase( SECTION,
+	      "ConvertToString.call(Boolean, Boolean.prototype.valueOf())",
+	      "false",
+	      ConvertToString.call(Boolean, Boolean.prototype.valueOf()));
+
+test();
+
+function ConvertToString(obj) {
+  return obj +"";
+}

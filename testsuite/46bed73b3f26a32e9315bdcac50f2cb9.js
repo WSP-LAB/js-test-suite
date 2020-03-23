@@ -1,0 +1,36 @@
+load("bf4b12814bc95f34eeb130127d8438ab.js");
+load("93fae755edd261212639eed30afa2ca4.js");
+// Copyright 2009 the Sputnik authors.  All rights reserved.
+// This code is governed by the BSD license found in the LICENSE file.
+
+/*---
+info: >
+    When the Object function is called with one argument value,
+    and the value neither is null nor undefined, and is supplied, return ToObject(value)
+es5id: 15.2.1.1_A2_T3
+description: Calling Object function with string argument value
+---*/
+
+var str = 'Luke Skywalker';
+
+// CHECK#1
+if (typeof str  !== 'string') {
+  $ERROR('#1: "Luke Skywalker" should be a String primitive');
+}
+
+var obj = Object(str);
+
+//CHECK#2
+if (obj.constructor !== String) {
+  $ERROR('#2: Object("Luke Skywalker") returns ToObject("Luke Skywalker")');
+}
+
+//CHECK#3
+if (typeof obj !== "object") {
+  $ERROR('#3: Object("Luke Skywalker") returns ToObject("Luke Skywalker")');
+}
+
+//CHECK#4
+if ((obj != "Luke Skywalker")||(obj === "Luke Skywalker")) {
+  $ERROR('#4: Object("Luke Skywalker") returns ToObject("Luke Skywalker")');
+}

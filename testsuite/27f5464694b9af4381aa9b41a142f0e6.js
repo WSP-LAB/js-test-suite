@@ -1,0 +1,52 @@
+load("1d8ada728956c1a3d52d68d1d4d6dd52.js");
+// Copyright 2017 the V8 project authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Flags: --expose-wasm
+
+load("0e11f61b08293f1182a506d61faebbd0.js");
+load("04f5c575f8cd734a07b2beedb1765d6e.js");
+
+function toBytes(string) {
+  var a = new Array(string.length + 1);
+  a[0] = string.length;
+  for (i = 0; i < string.length; i++) {
+    a[i + 1] = string.charCodeAt(i);
+  }
+  return a;
+}
+
+(function TestEmptyNamesSection() {
+  print('TestEmptyNamesSection...');
+  var builder = new WasmModuleBuilder();
+
+  builder.addExplicitSection([kUnknownSectionCode, 6, ...toBytes('name'), 0]);
+
+  var buffer = builder.toBuffer();
+  assertTrue(WebAssembly.validate(buffer));
+  assertTrue((new WebAssembly.Module(buffer)) instanceof WebAssembly.Module);
+})();
+
+(function TestTruncatedNamesSection() {
+  print('TestTruncatedNamesSection...');
+  var builder = new WasmModuleBuilder();
+
+  builder.addExplicitSection([kUnknownSectionCode, 6, ...toBytes('name'), 1]);
+
+  var buffer = builder.toBuffer();
+  assertTrue(WebAssembly.validate(buffer));
+  assertTrue((new WebAssembly.Module(buffer)) instanceof WebAssembly.Module);
+})();
+
+(function TestBrokenNamesSection() {
+  print('TestBrokenNamesSection...');
+  var builder = new WasmModuleBuilder();
+
+  builder.addExplicitSection(
+      [kUnknownSectionCode, 7, ...toBytes('name'), 1, 100]);
+
+  var buffer = builder.toBuffer();
+  assertTrue(WebAssembly.validate(buffer));
+  assertTrue((new WebAssembly.Module(buffer)) instanceof WebAssembly.Module);
+})();

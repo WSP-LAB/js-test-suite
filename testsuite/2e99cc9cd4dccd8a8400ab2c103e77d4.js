@@ -1,0 +1,33 @@
+load("bf4b12814bc95f34eeb130127d8438ab.js");
+load("93fae755edd261212639eed30afa2ca4.js");
+// Copyright (c) 2012 Ecma International.  All rights reserved.
+// This code is governed by the BSD license found in the LICENSE file.
+
+/*---
+es5id: 15.2.3.8-2-3
+description: Object.seal - inherited accessor properties are ignored
+---*/
+
+        var proto = {};
+
+        Object.defineProperty(proto, "Father", {
+            get: function () {
+                return 10;
+            },
+            configurable: true
+        });
+
+        var ConstructFun = function () { };
+        ConstructFun.prototype = proto;
+
+        var child = new ConstructFun();
+        var preCheck = Object.isExtensible(child);
+        Object.seal(child);
+
+        var beforeDeleted = proto.hasOwnProperty("Father");
+        delete proto.Father;
+        var afterDeleted = proto.hasOwnProperty("Father");
+
+assert(preCheck, 'preCheck !== true');
+assert(beforeDeleted, 'beforeDeleted !== true');
+assert.sameValue(afterDeleted, false, 'afterDeleted');

@@ -1,0 +1,20 @@
+load("201224b0d1c296b45befd2285e95dd42.js");
+/*
+ * Call the trap with the handler as the this value, and the target as the first
+ * argument
+ */
+var target = {};
+var called = false;
+var handler = {
+    ownKeys: function (target1) {
+        assertEq(this, handler);
+        assertEq(target1, target);
+        called = true;
+        return [];
+    }
+};
+
+for (let p of [new Proxy(target, handler), Proxy.revocable(target, handler).proxy]) {
+    assertEq(Object.getOwnPropertyNames(p).length, 0);
+    assertEq(called, true);
+}

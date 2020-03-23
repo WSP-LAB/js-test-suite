@@ -1,0 +1,37 @@
+load("fcfbc86708bc3a4062c2091a062e13b6.js");
+load("bcb77b03ed13784489484535627fca54.js");
+/*
+ * Any copyright is dedicated to the Public Domain.
+ * http://creativecommons.org/licenses/publicdomain/
+ */
+
+//-----------------------------------------------------------------------------
+var BUGNUMBER = 1288459;
+var summary = "let can't be used as a label in strict mode code";
+
+print(BUGNUMBER + ": " + summary);
+
+/**************
+ * BEGIN TEST *
+ **************/
+
+Function("let: 42");
+Function("l\\u0065t: 42");
+assertThrowsInstanceOf(() => Function(" 'use strict'; let: 42"), SyntaxError);
+assertThrowsInstanceOf(() => Function(" 'use strict' \n let: 42"), SyntaxError);
+assertThrowsInstanceOf(() => Function(" 'use strict'; l\\u0065t: 42"), SyntaxError);
+assertThrowsInstanceOf(() => Function(" 'use strict' \n l\\u0065t: 42"), SyntaxError);
+
+eval("let: 42");
+eval("l\\u0065t: 42");
+assertThrowsInstanceOf(() => eval(" 'use strict'; let: 42"), SyntaxError);
+assertThrowsInstanceOf(() => eval(" 'use strict' \n let: 42;"), SyntaxError);
+assertThrowsInstanceOf(() => eval(" 'use strict'; l\\u0065t: 42"), SyntaxError);
+assertThrowsInstanceOf(() => eval(" 'use strict' \n l\\u0065t: 42;"), SyntaxError);
+
+/******************************************************************************/
+
+if (typeof reportCompare === "function")
+  reportCompare(true, true);
+
+print("Tests complete");

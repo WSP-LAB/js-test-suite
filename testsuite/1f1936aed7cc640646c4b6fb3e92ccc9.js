@@ -1,0 +1,22 @@
+load("bf4b12814bc95f34eeb130127d8438ab.js");
+load("93fae755edd261212639eed30afa2ca4.js");
+// Copyright (C) 2016 the V8 project authors. All rights reserved.
+// This code is governed by the BSD license found in the LICENSE file.
+/*---
+esid: sec-method-definitions
+es6id: 14.3
+description: >
+  YieldExpression cannot be used within the FormalParameters of a class method
+info: |
+  MethodDefinition[Yield] :
+
+    PropertyName[?Yield] ( StrictFormalParameters ) { FunctionBody }
+features: [generators, default-parameters]
+negative:
+  phase: early
+  type: SyntaxError
+---*/
+
+0, class {
+  static m(x = yield) {}
+};

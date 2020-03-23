@@ -1,0 +1,16 @@
+load("201224b0d1c296b45befd2285e95dd42.js");
+assertEq(Number.isInteger(4), true);
+assertEq(Number.isInteger(4.), true);
+assertEq(Number.isInteger(4.2), false);
+assertEq(Number.isInteger(0.), true);
+assertEq(Number.isInteger(-0.), true);
+assertEq(Number.isInteger(Infinity), false);
+assertEq(Number.isInteger(-Infinity), false);
+assertEq(Number.isInteger(NaN), false);
+assertEq(Number.isInteger(true), false);
+assertEq(Number.isInteger(false), false);
+assertEq(Number.isInteger({valueOf: function () { return 3; }}), false);
+assertEq(Number.isInteger({valueOf: function () { return 0/0; }}), false);
+assertEq(Number.isInteger({ valueOf: function() { throw 17; } }), false);
+assertEq(Number.isInteger({ toString: function() { throw 17; } }), false);
+assertEq(Number.isInteger({ valueOf: function() { throw 17; }, toString: function() { throw 42; } }), false);

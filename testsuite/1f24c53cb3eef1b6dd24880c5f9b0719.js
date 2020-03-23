@@ -1,0 +1,7 @@
+load("201224b0d1c296b45befd2285e95dd42.js");
+// |jit-test| error:TypeError
+
+if (!this.hasOwnProperty("TypedObject"))
+  throw new TypeError();
+
+new TypedObject.StructType(RegExp);
