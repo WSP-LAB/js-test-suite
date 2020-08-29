@@ -7,8 +7,8 @@ This repository provides a collection of JS test suites from
 [JavaScriptCore](https://trac.webkit.org/browser/webkit), and
 [Test262](https://github.com/tc39/test262) repositories. This set was used for
 evaluation in our [paper](https://leeswimming.com/papers/lee-sec20.pdf),
-"Montage: A Neural Network Language Model-Guided JavaScript Engine Fuzzer" (To
-appear in USENIX Security 2020).
+"Montage: A Neural Network Language Model-Guided JavaScript Engine Fuzzer",
+which appeared in USENIX Security 2020.
 
 ## Date of the collection
 We collected JS files from each repository as of the following dates.
